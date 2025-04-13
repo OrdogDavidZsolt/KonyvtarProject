@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace KonyvtarAPI
 {
     public class Olvasok
     {
-        [Required]
         //(EF által automatikusan generált)
+        [Required]
         public int OlvasoSzam { get; set; }
 
         [Required]
@@ -14,8 +15,9 @@ namespace KonyvtarAPI
         [Required]
         public string Lakcim { get; set; }
 
-        [Required]
         //Validációs kikötés: Az érték nem lehet kisebb mint 1900
+        [Required]
+        [ValidBetweenTodayAnd("1900-01-01")]
         public DateTime SzuletesiDatum { get; set; }
     }
 }
