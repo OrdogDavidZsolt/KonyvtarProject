@@ -23,7 +23,9 @@ builder.Services.AddDbContext<KonyvtarDBContext>(options =>
 
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddSingleton< , >();
+builder.Services.AddSingleton<IKolcsonzesCRUD, KolcsonzesService>();
+builder.Services.AddSingleton<IKonyvekCRUD, KonyvekService>();
+builder.Services.AddSingleton<IOlvasokCRUD, OlvasokService>();
 
 var app = builder.Build();
 
