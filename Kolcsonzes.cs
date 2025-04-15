@@ -10,7 +10,7 @@ namespace KonyvtarAPI
         public int OlvasoSzam { get; set; }
 
         //Könyvek kapcsolat
-        [ForeignKey("LeltariSzam")]
+        [Key]
         public int LeltariSzam { get; set; }
 
         //Validációs kikötés: Az érték nem lehet a jelenlegi napnál későbbi (A feladat korábbi-t írt, de szerintem ennek így van értelme)
