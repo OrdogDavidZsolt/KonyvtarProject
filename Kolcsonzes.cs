@@ -1,17 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KonyvtarAPI
 {
     public class Kolcsonzes
     {
         //Olvasók kapcsolat
-        //EF által automatikusan generált
-        [Required]
+        [ForeignKey("OlvasoSzam")]
         public int OlvasoSzam { get; set; }
 
         //Könyvek kapcsolat
-        //EF által automatikusan generált
-        [Required]
+        [ForeignKey("LeltariSzam")]
         public int LeltariSzam { get; set; }
 
         //Validációs kikötés: Az érték nem lehet a jelenlegi napnál későbbi (A feladat korábbi-t írt, de szerintem ennek így van értelme)

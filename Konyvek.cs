@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KonyvtarAPI
 {
     public class Konyvek
     {
         //(EF által automatikusan generált)
-        [Required]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LeltariSzam { get; set; }
 
         [Required]

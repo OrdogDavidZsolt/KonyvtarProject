@@ -1,6 +1,6 @@
 ﻿namespace KonyvtarAPI
 {
-    public class OlvasokService :IOlvasokCRUD
+    public class OlvasokService : IOlvasokCRUD
     {
         private readonly List<Olvasok> _olvasok;
         private readonly ILogger<OlvasokService> _logger;

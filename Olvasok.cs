@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 
 namespace KonyvtarAPI
@@ -6,7 +7,8 @@ namespace KonyvtarAPI
     public class Olvasok
     {
         //(EF által automatikusan generált)
-        [Required]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OlvasoSzam { get; set; }
 
         [Required]

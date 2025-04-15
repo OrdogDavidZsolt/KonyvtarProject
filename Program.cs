@@ -1,3 +1,5 @@
+using KonyvtarAPI;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,13 @@ builder.Services.AddSerilog(
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+builder.Services.AddDbContext<KonyvtarDBContext>(options =>
+{
+    options.UseSqlite(builder.Configuration.GetConnectionString("SQLite"));
+    options.UseLazyLoadingProxies();
+});
+
 builder.Services.AddSwaggerGen();
 
 //builder.Services.AddSingleton< , >();
