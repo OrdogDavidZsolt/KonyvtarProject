@@ -31,7 +31,7 @@ namespace OlvasokController
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{OlvasoSzam}")]
         public async Task<IActionResult> Delete(int OlvasoSzam)
         {
             var existingOlvaso = await _konyvtarDBContext.Olvasok.FindAsync(OlvasoSzam);
@@ -53,7 +53,7 @@ namespace OlvasokController
             return Ok(olvasok);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{OlvasoSzam}")]
         public async Task<ActionResult<Olvasok>> Get(int OlvasoSzam)
         {
             var olvaso = await _konyvtarDBContext.Olvasok.FindAsync(OlvasoSzam);
@@ -66,7 +66,7 @@ namespace OlvasokController
             return Ok(olvaso);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{OlvasoSzam}")]
         public async Task<IActionResult> Update(int OlvasoSzam, [FromBody] Olvasok olvaso)
         {
             if (OlvasoSzam != olvaso.OlvasoSzam)

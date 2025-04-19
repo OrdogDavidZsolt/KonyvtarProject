@@ -31,7 +31,7 @@ namespace KonyvekController
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{LeltariSzam}")]
         public async Task<IActionResult> Delete(int LeltariSzam)
         {
             var existingKonyv = await _konyvtarDBContext.Konyvek.FindAsync(LeltariSzam);
@@ -53,7 +53,7 @@ namespace KonyvekController
             return Ok(konyvek);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{LeltariSzam}")]
         public async Task<ActionResult<Konyvek>> Get(int LeltariSzam)
         {
             var konyv = await _konyvtarDBContext.Konyvek.FindAsync(LeltariSzam);
@@ -66,7 +66,7 @@ namespace KonyvekController
             return Ok(konyv);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{LeltariSzam}")]
         public async Task<IActionResult> Update(int LeltariSzam, [FromBody] Konyvek konyv)
         {
             if (LeltariSzam != konyv.LeltariSzam)

@@ -25,8 +25,7 @@ namespace KonyvtarAPI
             https://stackoverflow.com/questions/42449369/how-can-i-used-datetime-today-as-a-paramter-in-dataannotations-rangeattribute
         */
         [Required]
-        [Range(typeof(DateOnly), "0000-01-01", "9999-12-31", ErrorMessage = "A kiadás éve nem lehet negatív.")]
-        [ValidBetweenTodayAnd("0001-01-01")]
+        [YearBeforeCurrentYear]
         public int KiadasEve { get; set; }
     }
 }

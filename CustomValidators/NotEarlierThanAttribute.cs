@@ -3,16 +3,12 @@
 namespace KonyvtarAPI.CustomValidators
 {
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    public class ValidBetweenTodayAndAttribute : ValidationAttribute
+    public class NotEarlierThanAttribute : ValidationAttribute
     {
         private readonly DateOnly _minDate;
-
-        public ValidBetweenTodayAndAttribute(string minDate)
+        public NotEarlierThanAttribute(string value)
         {
-            if (!DateOnly.TryParse(minDate, out _minDate))
-            {
-                throw new ArgumentException("Invalid date format. Use a valid date string like '0001-01-01'.");
-            }
+            _minDate = DateOnly.FromDateTime(DateTime.Today);
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -24,14 +20,12 @@ namespace KonyvtarAPI.CustomValidators
 
             if (value is DateOnly dateValue)
             {
-                DateOnly maxDate = DateOnly.FromDateTime(DateTime.Today);
-
-                if (dateValue >= _minDate && dateValue <= maxDate)
+                if (dateValue >= _minDate)
                 {
                     return ValidationResult.Success;
                 }
 
-                return new ValidationResult($"The date must be between {_minDate:yyyy-MM-dd} and {maxDate:yyyy-MM-dd}.");
+                return new ValidationResult($"The date must not be earlier than {_minDate:yyyy-MM-dd}.");
             }
 
             return new ValidationResult("Invalid date value.");

@@ -31,7 +31,7 @@ namespace KolcsonzesController
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{LeltariSzam}")]
         public async Task<IActionResult> Delete(int LeltariSzam)
         {
             var existingKolcsonzes = await _konyvtarDBContext.Kolcsonzesek.FindAsync(LeltariSzam);
@@ -53,10 +53,10 @@ namespace KolcsonzesController
             return Ok(kolcsonzes);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Kolcsonzes>> Get(int id)
+        [HttpGet("{LeltariSzam}")]
+        public async Task<ActionResult<Kolcsonzes>> Get(int LeltariSzam)
         {
-            var kolcsonzes = await _konyvtarDBContext.Kolcsonzesek.FindAsync(id);
+            var kolcsonzes = await _konyvtarDBContext.Kolcsonzesek.FindAsync(LeltariSzam);
 
             if (kolcsonzes is null)
             {
@@ -66,7 +66,7 @@ namespace KolcsonzesController
             return Ok(kolcsonzes);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{LeltariSzam}")]
         public async Task<IActionResult> Update(int LeltariSzam, [FromBody] Kolcsonzes kolcsonzes)
         {
             if (LeltariSzam != kolcsonzes.LeltariSzam)

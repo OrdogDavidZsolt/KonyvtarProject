@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
+using KonyvtarAPI.CustomValidators;
 
 namespace KonyvtarAPI
 {
@@ -17,9 +17,9 @@ namespace KonyvtarAPI
         [Required]
         public string Lakcim { get; set; }
 
-        //Validációs kikötés: Az érték nem lehet kisebb mint 1900
+        //Validációs kikötés: Születési dátum nem lehet kisebb mint 1900
         [Required]
         [ValidBetweenTodayAnd("1900-01-01")]
-        public DateTime SzuletesiDatum { get; set; }
+        public DateOnly SzuletesiDatum { get; set; }
     }
 }
