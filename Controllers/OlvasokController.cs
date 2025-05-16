@@ -8,55 +8,55 @@ namespace OlvasokController
     [Route("olvasok")]
     public class OlvasokController : ControllerBase
     {
-        private readonly KonyvtarDBContext _konyvtarDBContext;
+        private readonly KonyvtarDBContext _konyvtarDbContext;
 
-        public OlvasokController(KonyvtarDBContext konyvtarDBContext)
+        public OlvasokController(KonyvtarDBContext konyvtarDbContext)
         {
-            _konyvtarDBContext = konyvtarDBContext;
+            _konyvtarDbContext = konyvtarDbContext;
         }
 
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] Olvasok olvaso)
         {
-            var existingOlvaso = await _konyvtarDBContext.Olvasok.FindAsync(olvaso.OlvasoSzam);
+            var existingOlvaso = await _konyvtarDbContext.Olvasok.FindAsync(olvaso.OlvasoSzam);
 
             if (existingOlvaso is not null)
             {
                 return Conflict();
             }
 
-            _konyvtarDBContext.Olvasok.Add(olvaso);
-            await _konyvtarDBContext.SaveChangesAsync();
+            _konyvtarDbContext.Olvasok.Add(olvaso);
+            await _konyvtarDbContext.SaveChangesAsync();
 
             return Ok();
         }
 
-        [HttpDelete("{OlvasoSzam}")]
-        public async Task<IActionResult> Delete(int OlvasoSzam)
+        [HttpDelete("{olvasoSzam}")]
+        public async Task<IActionResult> Delete(int olvasoSzam)
         {
-            var existingOlvaso = await _konyvtarDBContext.Olvasok.FindAsync(OlvasoSzam);
+            var existingOlvaso = await _konyvtarDbContext.Olvasok.FindAsync(olvasoSzam);
 
             if (existingOlvaso is null)
             {
                 return NotFound();
             }
 
-            _konyvtarDBContext.Olvasok.Remove(existingOlvaso);
-            await _konyvtarDBContext.SaveChangesAsync();
+            _konyvtarDbContext.Olvasok.Remove(existingOlvaso);
+            await _konyvtarDbContext.SaveChangesAsync();
             return Ok();
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Olvasok>>> GetAll()
         {
-            var olvasok = await _konyvtarDBContext.Olvasok.ToListAsync();
+            var olvasok = await _konyvtarDbContext.Olvasok.ToListAsync();
             return Ok(olvasok);
         }
 
-        [HttpGet("{OlvasoSzam}")]
-        public async Task<ActionResult<Olvasok>> Get(int OlvasoSzam)
+        [HttpGet("{olvasoSzam}")]
+        public async Task<ActionResult<Olvasok>> Get(int olvasoSzam)
         {
-            var olvaso = await _konyvtarDBContext.Olvasok.FindAsync(OlvasoSzam);
+            var olvaso = await _konyvtarDbContext.Olvasok.FindAsync(olvasoSzam);
 
             if (olvaso is null)
             {
@@ -66,15 +66,15 @@ namespace OlvasokController
             return Ok(olvaso);
         }
 
-        [HttpPut("{OlvasoSzam}")]
-        public async Task<IActionResult> Update(int OlvasoSzam, [FromBody] Olvasok olvaso)
+        [HttpPut("{olvasoSzam}")]
+        public async Task<IActionResult> Update(int olvasoSzam, [FromBody] Olvasok olvaso)
         {
-            if (OlvasoSzam != olvaso.OlvasoSzam)
+            if (olvasoSzam != olvaso.OlvasoSzam)
             {
                 return BadRequest();
             }
 
-            var oldOlvaso = await _konyvtarDBContext.Olvasok.FindAsync(OlvasoSzam);
+            var oldOlvaso = await _konyvtarDbContext.Olvasok.FindAsync(olvasoSzam);
 
             if (oldOlvaso is null)
             {
@@ -86,8 +86,8 @@ namespace OlvasokController
             oldOlvaso.Lakcim = olvaso.Lakcim;
             oldOlvaso.OlvasoNev = olvaso.OlvasoNev;
 
-            _konyvtarDBContext.Olvasok.Update(oldOlvaso);
-            await _konyvtarDBContext.SaveChangesAsync();
+            _konyvtarDbContext.Olvasok.Update(oldOlvaso);
+            await _konyvtarDbContext.SaveChangesAsync();
 
             return Ok();
         }

@@ -8,55 +8,55 @@ namespace KonyvekController
     [Route("konyvek")]
     public class KonyvekController : ControllerBase
     {
-        private readonly KonyvtarDBContext _konyvtarDBContext;
+        private readonly KonyvtarDBContext _konyvtarDbContext;
 
-        public KonyvekController(KonyvtarDBContext konyvtarDBContext)
+        public KonyvekController(KonyvtarDBContext konyvtarDbContext)
         {
-            _konyvtarDBContext = konyvtarDBContext;
+            _konyvtarDbContext = konyvtarDbContext;
         }
 
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] Konyvek konyv)
         {
-            var existingKonyv = await _konyvtarDBContext.Konyvek.FindAsync(konyv.LeltariSzam);
+            var existingKonyv = await _konyvtarDbContext.Konyvek.FindAsync(konyv.LeltariSzam);
 
             if (existingKonyv is not null)
             {
                 return Conflict();
             }
 
-            _konyvtarDBContext.Konyvek.Add(konyv);
-            await _konyvtarDBContext.SaveChangesAsync();
+            _konyvtarDbContext.Konyvek.Add(konyv);
+            await _konyvtarDbContext.SaveChangesAsync();
 
             return Ok();
         }
 
-        [HttpDelete("{LeltariSzam}")]
-        public async Task<IActionResult> Delete(int LeltariSzam)
+        [HttpDelete("{leltariSzam}")]
+        public async Task<IActionResult> Delete(int leltariSzam)
         {
-            var existingKonyv = await _konyvtarDBContext.Konyvek.FindAsync(LeltariSzam);
+            var existingKonyv = await _konyvtarDbContext.Konyvek.FindAsync(leltariSzam);
 
             if (existingKonyv is null)
             {
                 return NotFound();
             }
 
-            _konyvtarDBContext.Konyvek.Remove(existingKonyv);
-            await _konyvtarDBContext.SaveChangesAsync();
+            _konyvtarDbContext.Konyvek.Remove(existingKonyv);
+            await _konyvtarDbContext.SaveChangesAsync();
             return Ok();
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Konyvek>>> GetAll()
         {
-            var konyvek = await _konyvtarDBContext.Konyvek.ToListAsync();
+            var konyvek = await _konyvtarDbContext.Konyvek.ToListAsync();
             return Ok(konyvek);
         }
 
-        [HttpGet("{LeltariSzam}")]
-        public async Task<ActionResult<Konyvek>> Get(int LeltariSzam)
+        [HttpGet("{leltariSzam}")]
+        public async Task<ActionResult<Konyvek>> Get(int leltariSzam)
         {
-            var konyv = await _konyvtarDBContext.Konyvek.FindAsync(LeltariSzam);
+            var konyv = await _konyvtarDbContext.Konyvek.FindAsync(leltariSzam);
 
             if (konyv is null)
             {
@@ -66,15 +66,15 @@ namespace KonyvekController
             return Ok(konyv);
         }
 
-        [HttpPut("{LeltariSzam}")]
-        public async Task<IActionResult> Update(int LeltariSzam, [FromBody] Konyvek konyv)
+        [HttpPut("{leltariSzam}")]
+        public async Task<IActionResult> Update(int leltariSzam, [FromBody] Konyvek konyv)
         {
-            if (LeltariSzam != konyv.LeltariSzam)
+            if (leltariSzam != konyv.LeltariSzam)
             {
                 return BadRequest();
             }
 
-            var oldKonyv = await _konyvtarDBContext.Konyvek.FindAsync(LeltariSzam);
+            var oldKonyv = await _konyvtarDbContext.Konyvek.FindAsync(leltariSzam);
 
             if (oldKonyv is null)
             {
@@ -87,8 +87,8 @@ namespace KonyvekController
             oldKonyv.Kiado = konyv.Kiado;
             oldKonyv.Cim = konyv.Cim;
 
-            _konyvtarDBContext.Konyvek.Update(oldKonyv);
-            await _konyvtarDBContext.SaveChangesAsync();
+            _konyvtarDbContext.Konyvek.Update(oldKonyv);
+            await _konyvtarDbContext.SaveChangesAsync();
 
             return Ok();
         }

@@ -1,22 +1,29 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using KonyvtarAPI.CustomValidators;
 
 namespace KonyvtarAPI
 {
     public class Konyvek
     {
-        //(EF által automatikusan generált)
         [Key]
+        [Display(Name = "Leltári szám")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LeltariSzam { get; set; }
 
         [Required]
+        [MaxLength(50)]
+        [Display(Name = "Könyv címe")]
         public string Cim { get; set; }
 
         [Required]
+        [MaxLength(50)]
+        [Display(Name = "Szerző")]
         public string Szerzo { get; set; }
 
         [Required]
+        [MaxLength(50)]
+        [Display(Name = "Kiadó")]
         public string Kiado { get; set; }
 
         /*
@@ -25,6 +32,7 @@ namespace KonyvtarAPI
             https://stackoverflow.com/questions/42449369/how-can-i-used-datetime-today-as-a-paramter-in-dataannotations-rangeattribute
         */
         [Required]
+        [Display(Name = "Kiadás éve")]
         [YearBeforeCurrentYear]
         public int KiadasEve { get; set; }
     }

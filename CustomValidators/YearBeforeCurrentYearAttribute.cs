@@ -18,9 +18,9 @@ public class YearBeforeCurrentYearAttribute : ValidationAttribute
             return ValidationResult.Success;
         }
 
-        if (value is int YearValue)
+        if (value is int yearValue)
         {
-            if (YearValue >= _lowestYear && YearValue <= _currentYear)
+            if (yearValue >= _lowestYear && yearValue <= _currentYear)
             {
                 return ValidationResult.Success;
             }

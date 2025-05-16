@@ -6,20 +6,27 @@ namespace KonyvtarAPI
 {
     public class Olvasok
     {
-        //(EF által automatikusan generált)
         [Key]
+        [Display(Name = "Olvasó szám")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OlvasoSzam { get; set; }
 
         [Required]
+        [MaxLength(50)]
+        [Display(Name = "Olvasó név")]
         public string OlvasoNev { get; set; }
 
         [Required]
+        [MaxLength(50)]
+        [Display(Name = "Lakcím")]
         public string Lakcim { get; set; }
 
         //Validációs kikötés: Születési dátum nem lehet kisebb mint 1900
         [Required]
+        [Display(Name = "Születési dátum")]
         [ValidBetweenTodayAnd("1900-01-01")]
         public DateOnly SzuletesiDatum { get; set; }
+
+        //public virtual ICollection<Kolcsonzes> Kolcsonzesek { get; set; }
     }
 }
