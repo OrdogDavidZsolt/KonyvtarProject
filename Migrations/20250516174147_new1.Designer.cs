@@ -3,6 +3,7 @@ using System;
 using KonyvtarAPI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KonyvtarAPI.Migrations
 {
     [DbContext(typeof(KonyvtarDBContext))]
-    partial class KonyvtarDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250516174147_new1")]
+    partial class new1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

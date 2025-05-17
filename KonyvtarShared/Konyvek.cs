@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using KonyvtarAPI.CustomValidators;
 
-namespace KonyvtarAPI
+namespace KonyvtarAPI.KonyvtarShared
 {
     public class Konyvek
     {

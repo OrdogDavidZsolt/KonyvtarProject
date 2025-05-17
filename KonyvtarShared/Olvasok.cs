@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using KonyvtarAPI.CustomValidators;
 
-namespace KonyvtarAPI
+namespace KonyvtarAPI.KonyvtarShared
 {
     public class Olvasok
     {
@@ -26,7 +26,5 @@ namespace KonyvtarAPI
         [Display(Name = "Születési dátum")]
         [ValidBetweenTodayAnd("1900-01-01")]
         public DateOnly SzuletesiDatum { get; set; }
-
-        //public virtual ICollection<Kolcsonzes> Kolcsonzesek { get; set; }
     }
 }

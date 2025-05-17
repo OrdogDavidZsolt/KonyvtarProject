@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KonyvtarAPI.KonyvtarShared;
+using Microsoft.EntityFrameworkCore;
 
 namespace KonyvtarAPI
 {

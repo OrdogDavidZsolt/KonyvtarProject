@@ -7,18 +7,18 @@ namespace KonyvtarAPI
     public class Kolcsonzes
     {
         [Key]
-        [Display(Name = "Kölcsönzés azonosító")]
+        [Display(Name = "Kölcsönzés szám")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int KolcsonzesSzam { get; set; }
 
         //Olvasók kapcsolat
         [Display(Name = "Olvasó szám")]
-        [ForeignKey("OlvasoSzam")]
+        [ForeignKey("Olvaso")]
         public int OlvasoSzam { get; set; }
 
         //Könyvek kapcsolat
         [Display(Name = "Leltári szám")]
-        [ForeignKey("LeltariSzam")]
+        [ForeignKey("Konyv")]
         public int LeltariSzam { get; set; }
 
         //Validációs kikötés: Az érték nem lehet a jelenlegi napnál későbbi (A feladat korábbi-t írt, de szerintem ennek így van értelme)

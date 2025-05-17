@@ -1,4 +1,5 @@
 ﻿using KonyvtarAPI;
+using KonyvtarAPI.KonyvtarShared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,11 +19,28 @@ namespace KolcsonzesController
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] Kolcsonzes kolcsonzes)
         {
-            var existingKolcsonzes = await _konyvtarDbContext.Kolcsonzesek.FindAsync(kolcsonzes.LeltariSzam);
+            var existingKolcsonzes = await _konyvtarDbContext.Kolcsonzesek.FindAsync(kolcsonzes.KolcsonzesSzam);
+            var existingOlvaso = await _konyvtarDbContext.Olvasok.FindAsync(kolcsonzes.OlvasoSzam);
+            var existingKonyv = await _konyvtarDbContext.Konyvek.FindAsync(kolcsonzes.LeltariSzam);
 
             if (existingKolcsonzes is not null)
             {
                 return Conflict();
+            }
+
+            if (existingOlvaso is null)
+            {
+                return NotFound("Olvasó nem található");
+            }
+
+            if (existingKonyv is null)
+            {
+                return NotFound("Könyv nem található");
+            }
+
+            if (kolcsonzes.KolcsonzesSzam != 0)
+            {
+                return BadRequest("A kölcsönzés számát nem szabad megadni");
             }
 
             _konyvtarDbContext.Kolcsonzesek.Add(kolcsonzes);
@@ -69,7 +87,7 @@ namespace KolcsonzesController
         [HttpPut("{kolcsonzesSzam}")]
         public async Task<IActionResult> Update(int kolcsonzesSzam, [FromBody] Kolcsonzes kolcsonzes)
         {
-            if (kolcsonzesSzam != kolcsonzes.LeltariSzam)
+            if (kolcsonzesSzam != kolcsonzes.KolcsonzesSzam)
             {
                 return BadRequest();
             }
@@ -81,6 +99,7 @@ namespace KolcsonzesController
                 return NotFound();
             }
 
+            oldKolcsonzes.KolcsonzesSzam = kolcsonzes.KolcsonzesSzam;
             oldKolcsonzes.OlvasoSzam = kolcsonzes.OlvasoSzam;
             oldKolcsonzes.LeltariSzam = kolcsonzes.LeltariSzam;
             oldKolcsonzes.KolcsonzesIdeje = kolcsonzes.KolcsonzesIdeje;

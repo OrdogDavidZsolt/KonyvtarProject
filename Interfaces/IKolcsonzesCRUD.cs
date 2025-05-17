@@ -1,4 +1,6 @@
-﻿namespace KonyvtarAPI
+﻿using KonyvtarAPI.KonyvtarShared;
+
+namespace KonyvtarAPI
 {
     public interface IKolcsonzesCRUD
     {
